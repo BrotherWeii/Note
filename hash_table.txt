@@ -1,0 +1,48 @@
+//	Hash() - Given a LPSTR, returns a hash index in the range 0..HASHTABLESIZE-1
+static unsigned short Hash(LPTSTR fontName){
+	unsigned short hashVal = 0;
+	unsigned short ch;
+
+	while(ch = (unsigned short)*fontName++){
+		hashVal += ch;
+	}
+	return hashVal % HASHTABLESIZE;
+}
+
+//	HashLookup() - Given a LPSTR, returns a pointer to a FontNode or NULL if it doesn't exist
+static FontNodePtr HashLookup(LPTSTR fontName){
+	FontNodePtr	fontNodePtr;
+
+	for(fontNodePtr = fontHashTable[Hash(fontName)]; fontNodePtr; fontNodePtr = fontNodePtr->nextNode){
+		// Fortify SCA: (Mitigated by Design)
+		// Not an issue. 
+		// Comparison is to identify object in list.
+		// No buffer copy operation in involved
+		if(pbstg_strcmp(fontName, fontNodePtr->fontName) == 0){
+			return fontNodePtr;
+		}
+	}
+	return (FontNodePtr)NULL;
+}
+
+
+//	Add() - Given a LPSTR, Adds a new FontNode to hashtable.  If it exists, then replace the mappedNode
+static FontNodePtr HashAdd(LPTSTR fontName, FontNodePtr mappedNode){
+	FontNodePtr		fontNodePtr;
+	unsigned short	hashValue;
+
+	if((fontNodePtr = HashLookup(fontName)) == NULL){					// does font already exist?
+		hashValue = Hash(fontName);									// get a hash value for this font
+		fontNodePtr = (FontNodePtr) malloc(sizeof(FontNode));		// if not create a new fontnode entry
+		if(fontNodePtr){
+			fontNodePtr->mappedNode = mappedNode;
+			fontNodePtr->nextNode = fontHashTable[hashValue];
+			pbstg_strcpy_s((LPTSTR)fontNodePtr->fontName, PBSIZE(fontNodePtr->fontName),fontName);
+
+			fontHashTable[hashValue] = fontNodePtr;
+		}
+	} else {
+			fontNodePtr->mappedNode = mappedNode;
+	}
+	return fontNodePtr;
+}
