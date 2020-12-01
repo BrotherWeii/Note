@@ -8,7 +8,7 @@ int BinarySearch(int nKey, const int* pArray, int nArraySize);
 int main()
 {
 
-	//ÕûÊýÒç³ö°¸Àý£¬Êä³ö½á¹û-512695411
+	//æ•´æ•°æº¢å‡ºæ¡ˆä¾‹ï¼Œè¾“å‡ºç»“æžœ-512695411
 	int nA = 3333333333333333333;
 	int nB = 8888888888888888888;
 	int nTemp = (nA + nB) >> 1;
@@ -23,11 +23,11 @@ int BinarySearch(int nKey, const int* pArray, int nArraySize)
 {
 	if (pArray)
 	{
-		//È·¶¨Êý×éÐòºÅÇø¼ä[nL,nR]£¬nMid
+		//ç¡®å®šæ•°ç»„åºå·åŒºé—´[nL,nR]ï¼ŒnMid
 		int nL = 0;
 		int nR = nArraySize -1;
-		int nMid = nL + (nR - nL) >> 2;
-		//int nMid = £¨nL + nR£©/2£»Á½¸öÕûÊýÏà¼Ó£¬¿ÉÄÜ³öÏÖÕûÊýÒç³ö
+		int nMid = nL + (nR - nL) >> 1 ;
+		//int nMid = ï¼ˆnL + nRï¼‰/2ï¼›ä¸¤ä¸ªæ•´æ•°ç›¸åŠ ï¼Œå¯èƒ½å‡ºçŽ°æ•´æ•°æº¢å‡º
 
 		while (nL <= nR)
 		{
