@@ -1,0 +1,48 @@
+当遇到性能问题时，我们该怎么办？
+分治策略
+1.首先我们应将整个项目细分成多个模块
+2.测试每一个模块的性能，找出每一个模块的问题，分而治之
+3.每一个模块的性能都解决了，那么整合到一起的项目性能问题旧解决了
+
+如何GetTickCount测试单个接口的调用时间？
+1.系统API
+GetTickCount();	//时间分辨率大概15ms~16ms
+2.#include <time.h>
+clock();	//时间分辨率大概1ms
+
+如何记录测试数据？
+1.直接调用VS提供的OutputDebugString()输出至VS的Output窗口
+2.写入文件
+
+测试案例代码
+l.例一
+void TimeTest(wchar_t* pstr, BOOL bBegin)
+{
+    TCHAR szBuf[256] = {0};
+    DWORD dTime = clock();
+
+    bBegin ?
+		wsprintfW(szBuf,L"%s:,Begin: %d\r\n",pstr,dTime):
+        wsprintfW(szBuf,L"%s:,End  : %d\r\n",pstr,dTime);
+
+    OutputDebugString(szBuf);
+}
+2.例二
+void TestLocalTime(const TCHAR* pstr, BOOL bBegin)
+{
+	TCHAR szBuf[MAX_PATH] = { 0 };
+	DWORD dTime = clock();
+
+	bBegin ?
+		wsprintfW(szBuf, L"%s:,Begin: %d\r\n", pstr, dTime) :
+		wsprintfW(szBuf, L"%s:,End  : %d\r\n", pstr, dTime);
+
+	FILE *pfile = NULL;
+	pfile = fopen("C:\\test\\1.txt", "ab");
+	if (!pfile)
+		return;
+
+	int len = wcslen(szBuf);
+	fwrite(szBuf, sizeof(TCHAR), wcslen(szBuf), pfile);
+	fclose(pfile);
+}
