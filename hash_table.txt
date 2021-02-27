@@ -1,3 +1,11 @@
+1.从修bug、做维护到功能点到简易模块
+2.从维护零散的UI部分到承担整个功能的UI部分
+3.从用第三方库做XML/JSON解析生成到能够自身完成一个字节拼接解析的Pack模块
+4.从需要前辈的协助到有一定的独立开发能力
+5.从易错到少错
+优秀的事迹可能谈不上，但有在努力成长，紧跟公司的步伐。
+https://github.com/jwasham/coding-interview-university.git
+
 //	Hash() - Given a LPSTR, returns a hash index in the range 0..HASHTABLESIZE-1
 static unsigned short Hash(LPTSTR fontName){
 	unsigned short hashVal = 0;
@@ -46,11 +54,3 @@ static FontNodePtr HashAdd(LPTSTR fontName, FontNodePtr mappedNode){
 	}
 	return fontNodePtr;
 }
-
-1.从修bug、做维护到功能点到简易模块
-2.从维护零散的UI部分到承担整个功能的UI部分
-3.从用第三方库做XML/JSON解析生成到能够自身完成一个字节拼接解析的Pack模块
-4.从需要前辈的协助到有一定的独立开发能力
-5.从易错到少错
-优秀的事迹可能谈不上，但有在努力成长，紧跟公司的步伐。
-https://github.com/jwasham/coding-interview-university.git
